@@ -1,4 +1,4 @@
- This is a general reference to the urls, filters and operators available via rest https calls in Phantom. This is not exhaustive and you do have to be authenticated to use these. More often than not you can get the data you need from the phantom UI or splunk phantom index but if you need to write a script interacting with phantom data, this API is probably where you will end up going. 
+ This is a general reference to the urls, filters, and operators available via rest https calls in Phantom. This is not exhaustive and you do have to be authenticated to use these. More often than not, you can get the data you need from the phantom UI, but in scripts and custom playbook utilities, this API is probably where you will end up going. 
 
 
 
@@ -298,3 +298,11 @@ Most endpoints will spit out a helpful list if you put in bad filter fields so i
 ?_filter_showmethedata=True
 
 Best of luck on the dark side.
+ 
+----------------------------------------
+Playbook Utilities
+----------------------------------------
+
+You have to be authenticated with headers, tokens, etc to use these APIs outside of phantom, but inside of custom playbook code and utilities, you have other options.
+
+If you use <br/><code>phantom.requests</code><br/>instead of <br/><code>requests</code><br/>your API request will be automatically passed to the phantom API using the auth of the user executing the playbook (usually automation). This bypasses a lot of potential challenges exposing API tokens and things like that so definitely use the rest API in playbook code but use phantom.requests and make your life a ton easier
