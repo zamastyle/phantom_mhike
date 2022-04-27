@@ -1,8 +1,11 @@
- This is a general reference to the urls, filters and operators available via rest https calls in Phantom. This is not exhaustive and you do have to be authenticated to use these. More often than not you can get the data you need from the phantom UI or splunk phantom index but if you need to write a script interacting with phantom data, this API is probably where you will end up going. 
+ This is a general reference to the urls, filters and operators available via rest https calls in Phantom. This is not exhaustive and you do have to be 
+ authenticated to use these. More often than not you can get the data you need from the phantom UI or splunk phantom index but if you need to write a script 
+ interacting with phantom data, this API is probably where you will end up going. 
 
 ########################################
 #  Rest endpoints of note
 ########################################
+
 /rest/container
 /rest/container/<id>
 /rest/container/<id>/comments
@@ -65,13 +68,13 @@ If needed, list are unique data sets and can be formatted in CSV:
 
 rest/decided_list/<list_name>/formatted_content?_output_format=csv
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 Pretty Names
 For objects that contain IDs of other objects, you can frequently get the pretty name of the ID to return in the object by adding ?pretty.
 You cannot filter or otherwise interact with the pretty values via url parameters
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 Expensive Fields
 In some cases you can get more detail from a record by using ?include_expensive but its not frequently useful and it is named expensive because it is.
@@ -103,7 +106,7 @@ Example:
 ----------------------------------------
 -  Sub-fields
 ----------------------------------------
-To access subfields in data use __ between parent and child fields
+To access subfields in data use __ (double underscore) between parent and child fields
 
 Example:
 ?_exclude_cef__username__startswith="john"
