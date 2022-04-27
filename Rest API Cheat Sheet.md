@@ -1,4 +1,4 @@
- This is a general reference to the urls, filters, and operators available via rest https calls in Phantom. This is not exhaustive and you do have to be authenticated to use these. More often than not, you can get the data you need from the phantom UI, but in scripts and custom playbook utilities, this API is probably where you will end up going. 
+ This is a general reference to the urls, filters, and operators available via rest https calls in Phantom. This is not exhaustive and you do have to be authenticated to use these. More often than not, you can get the data you need from the phantom UI, but in scripts and custom playbook utilities, this API is probably where you will end up going. It is almost always faster and easier to script up a report than to try to harvest the report data from the UI directly. 
 
 
 
