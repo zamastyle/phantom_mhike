@@ -271,28 +271,33 @@ https://phantomserver.company.com/rest/container?sort=id&order=asc&_filter_playb
 -  Black Magic Filtering
 ----------------------------------------
 
-You can filter on many endpoints with data from others using some undocumented black magic joiny stuff. There is guess work involved and you can't see any of the data from the other referenced endpoints but they can be used to do some cool stuff.
+You can filter on many endpoints with data from others using some undocumented black magic joiny stuff. There is guess work involved and you can't see any 
+of the data from the other referenced endpoints but they can be used to do some cool stuff.
 
-For instance, this rest url is showing data for action_run, but it is being filtered by associated values in playbook_run. This will give you the action_runs where the associated playbook_run had a "failed" status
+For instance, this rest url is showing data for action_run, but it is being filtered by associated values in playbook_run. This will give you the action_runs 
+where the associated playbook_run had a "failed" status:
 
 /rest/action_run?_filter_playbook_run__status="failed"
 
 
-Another example is this
+Another example is this:
 
 /rest/action_run?_filter_playbook__name__icontains="rule"
 
-This will show only actions runs that were part of a playbook that had "rule" in the playbook name. These can be super helpful and can get you results that you would otherwise need multiple rest calls and some data processing to achieve.
+This will show only actions runs that were part of a playbook that had "rule" in the playbook name. These can be super helpful and can get you results that 
+you would otherwise need multiple rest calls and some data processing to achieve.
 
 
-One of the most creative and also darkest of magics I have seen with these filters is the this:
+One of the most creative and also darkest of magics I have seen with these filters is this:
 
 /rest/container?_filter_playbookrun__container__isnull=True
 
-This will show containers that have associated playbook_runs with a null container field. This seems like it should show us nothing since a playbook without a container is impossible but it actually shows us the containers that have no associated playbook_runs. 
+This will show containers that have associated playbook_runs with a null container field. This seems like it should show us nothing since a playbook without a 
+container is impossible but it actually shows us the containers that have no associated playbook_runs. 
 
 
-I mentioned that there is guess work involved and hopefully you noticed that in the first example, we filtered with playbook_run and in the second we filtered with playbookrun. These aren't interchangeable.
+I mentioned that there is guess work involved and hopefully you noticed that in the first example, we filtered with playbook_run and in the second we filtered 
+with playbookrun. These aren't interchangeable.
 Most endpoints will spit out a helpful list if you put in bad filter fields so if you are struggling, try running this filter for your endpoint:
 
 ?_filter_showmethedata=True
