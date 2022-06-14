@@ -1,0 +1,175 @@
+{
+    "appid": "c5a92c45-8c3e-417b-be46-01e8d7c677a6",
+    "name": "Link",
+    "description": "Generates a widget with clickable links",
+    "publisher": "Mhike",
+    "type": "generic",
+    "main_module": "link_connector.py",
+    "app_version": "1.0.0",
+    "utctime_updated": "2022-06-12T14:23:35.606945Z",
+    "package_name": "phantom_link",
+    "product_vendor": "Mhike",
+    "product_name": "Link",
+    "product_version_regex": ".*",
+    "min_phantom_version": "4.9.0",
+    "python_version": "3",
+    "logo": "link.svg",
+    "logo_dark": "link.svg",
+    "license": "Copyright (c) Mhike, 2022",
+    "configuration": {
+        "https_port": {
+            "description": "Splunk SOAR HTTPS port if your instance uses one other than 443",
+            "data_type": "string",
+            "required": false,
+            "value_list": [],
+            "default": "",
+            "order": 0,
+            "name": "https_port",
+            "id": 0
+        },
+        "debug": {
+            "description": "Print debugging statements to log",
+            "data_type": "boolean",
+            "required": false,
+            "default": "False",
+            "order": 1,
+            "name": "debug",
+            "id": 1
+        }
+    },
+    "actions": [
+        {
+            "action": "add link",
+            "description": "Generate a widget with clickable links",
+            "type": "generic",
+            "identifier": "add_link",
+            "read_only": false,
+            "parameters": {
+                "url": {
+                    "data_type": "string",
+                    "order": 0,
+                    "description": "URL to be added, requires the description field",
+                    "required": false,
+                    "name": "url",
+                    "id": 1,
+                    "param_name": "url"
+                },
+                "description": {
+                    "data_type": "string",
+                    "order": 1,
+                    "description": "Description to be added, requires the url field",
+                    "required": false,
+                    "name": "description",
+                    "id": 2,
+                    "param_name": "description"
+                },
+                "linkset": {
+                    "data_type": "string",
+                    "order": 2,
+                    "description": "Add multiple links at once with a list of dictionaries containing a URL and a link descriptor",
+                    "required": false,
+                    "name": "linkset",
+                    "id": 3,
+                    "param_name": "linkset"
+                },
+                "append": {
+                    "data_type": "boolean",
+                    "order": 3,
+                    "description": "Append link instead of overwriting",
+                    "required": true,
+                    "name": "append",
+                    "id": 4,
+                    "param_name": "append"
+                },
+                "sort": {
+                    "data_type": "boolean",
+                    "order": 4,
+                    "description": "Sort links alphabetically",
+                    "required": false,
+                    "name": "sort",
+                    "id": 5,
+                    "param_name": "sort"
+                }
+            },
+            "render": {
+                "width": 12,
+                "title": "Links",
+                "type": "custom",
+                "height": 5,
+                "view": "link_widget_view.display_view"
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.url",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.linkset",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.append",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.sort",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.linkset",
+                    "data_type": "string"
+                }
+            ],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "test_connectivity",
+            "identifier": "test_connectivity",
+            "description": "test connectivity to local phantom instance",
+            "verbose": "",
+            "type": "test",
+            "read_only": false,
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        }
+    ],
+    "directory": "link_c5a92c45-8c3e-417b-be46-01e8d7c677a6",
+    "version": 1,
+    "appname": "-",
+    "executable": "spawn3",
+    "disabled": false,
+    "copied_from_id": 404,
+    "copied_from_version": "1.3.0",
+    "custom_made": true
+}

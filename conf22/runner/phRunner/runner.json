@@ -1,0 +1,274 @@
+{
+    "appid": "3f141df7-4bf2-40de-8f68-6133a2cabf11",
+    "name": "Runner",
+    "description": "Runner schedules and executes playbooks based on generated schedule artifacts",
+    "type": "devops",
+    "product_vendor": "Mhike",
+    "logo": "runner.svg",
+    "logo_dark": "runner_dark.svg",
+    "product_name": "Runner",
+    "python_version": "3",
+    "product_version_regex": ".*",
+    "publisher": "Mhike",
+    "license": "Copyright (c) Mhike, 2022",
+    "app_version": "1.0.0",
+    "utctime_updated": "2022-06-14T19:06:53.972034Z",
+    "package_name": "phantom_runner",
+    "main_module": "runner_connector.py",
+    "min_phantom_version": "4.9.0",
+    "app_wizard_version": "1.0.0",
+    "configuration": {
+        "https_port": {
+            "description": "Splunk SOAR HTTPS port if your instance uses one other than 443",
+            "data_type": "string",
+            "required": false,
+            "value_list": [],
+            "default": "",
+            "order": 0,
+            "name": "https_port",
+            "id": 0
+        },
+        "playbook_limit": {
+            "description": "How many playbooks should be allowed to run per poll (default: 4)",
+            "data_type": "numeric",
+            "required": true,
+            "value_list": [],
+            "default": "4",
+            "order": 1,
+            "name": "playbook_limit",
+            "id": 1
+        },
+        "debug": {
+            "description": "Print debugging statements to log",
+            "data_type": "boolean",
+            "required": false,
+            "default": "False",
+            "order": 2,
+            "name": "debug",
+            "id": 2
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity using supplied configuration",
+            "verbose": "",
+            "type": "test",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "schedule playbook",
+            "identifier": "schedule_playbook",
+            "description": "Create a schedule artifact for a playbook to run later",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "delay_purpose": {
+                    "description": "A short comment on the purpose of the scheduled execution",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0,
+                    "name": "delay_purpose"
+                },
+                "duration_unit": {
+                    "description": "Units to be used for the delay duration",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "contains": [],
+                    "value_list": [
+                        "Minutes",
+                        "Hours",
+                        "Days"
+                    ],
+                    "default": "Minutes",
+                    "order": 1,
+                    "name": "duration_unit"
+                },
+                "delay_duration": {
+                    "description": "How many units do you want to delay before execution",
+                    "data_type": "numeric",
+                    "required": true,
+                    "primary": false,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "5",
+                    "order": 2,
+                    "name": "delay_duration"
+                },
+                "playbook": {
+                    "description": "The playbook do you want to execute after the delay",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 3,
+                    "name": "playbook"
+                },
+                "playbook_scope": {
+                    "description": "The scope to be applied to the scheduled playbook when executing",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "contains": [],
+                    "value_list": [
+                        "new",
+                        "all",
+                        "artifact"
+                    ],
+                    "default": "all",
+                    "order": 4,
+                    "name": "playbook_scope"
+                },
+                "artifact_id": {
+                    "description": "The ID of the artifact to run the playbook on (requires artifact scope)",
+                    "data_type": "numeric",
+                    "required": false,
+                    "primary": false,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 5,
+                    "name": "artifact_id"
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.delay_purpose",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.duration_unit",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.delay_duration",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.parameter.playbook",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.playbook_scope",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.artifact_id",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "clear scheduled playbooks",
+            "identifier": "clear_scheduled_playbooks",
+            "description": "Remove all pending scheduled playbooks on a container",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "cancellation_reason": {
+                    "description": "A short comment on why the playbooks were cancelled",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0,
+                    "name": "cancellation_reason"
+                },
+                "container_id": {
+                    "description": "The ID of the container to cancel schedules for. If an ID is not provided, the current container is assumed",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": false,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 1,
+                    "name": "container_id"
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.cancellation_reason",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.container_id",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "on poll",
+            "identifier": "on_poll",
+            "description": "Execute scheduled playbooks if their delay period has expired. Smaller intervals will result in more accurate schedules",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+    ],
+    "custom_made": true,
+    "directory": "runner_3f141df7-4bf2-40de-8f68-6133a2cabf11",
+    "version": 1,
+    "appname": "-",
+    "executable": "spawn3",
+    "disabled": false,
+    "copied_from_id": 416,
+    "copied_from_version": "1.2.0"
+}

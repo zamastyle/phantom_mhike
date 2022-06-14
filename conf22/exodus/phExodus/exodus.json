@@ -1,0 +1,146 @@
+{
+    "appid": "7fbd6b83-a9c6-4949-8e09-34bf2c39694d",
+    "name": "Exodus",
+    "description": "The Exodus app manages various operations used in migrating content from dev to prod.\n For this app to work, dev and prod MUST have http connectivity between the servers to make the required rest calls.\nIf you have a multi-tenant environment and you would like to manage migrations on a per tenant basis, create an asset for each tenant using the optional tenant ID field.\nIn environments that have the prod repository mounted in the dev environment as read only, make sure to use the optional Prod repo ID on the source host so that it will be re-synced with git after the migration is complete.",
+    "publisher": "Mhike",
+    "type": "generic",
+    "main_module": "exodus_connector.py",
+    "app_version": "1.0.0",
+    "utctime_updated": "2022-06-13T03:28:42.553440Z",
+    "package_name": "phantom_exodus",
+    "product_vendor": "Mhike",
+    "product_name": "Exodus",
+    "product_version_regex": ".*",
+    "min_phantom_version": "4.8.0",
+    "logo": "logo_exodus.svg",
+    "logo_dark": "logo_exodus_dark.svg",
+    "license": "Internal Use Only",
+    "python_version": "3",
+    "configuration": {
+        "source_base_url": {
+            "description": "URL for source Phantom host",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "https://devphantom.company.com/",
+            "order": 0,
+            "name": "source_base_url",
+            "id": 0
+        },
+        "source_api_token": {
+            "description": "API token for source Phantom host",
+            "data_type": "password",
+            "required": true,
+            "order": 1,
+            "name": "source_api_token",
+            "id": 1
+        },
+        "source_dev_repo_id": {
+            "description": "Dev Repository ID for source Phantom host",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 2,
+            "name": "source_dev_repo_id",
+            "id": 2
+        },
+        "source_prod_repo_id": {
+            "description": "Prod repository ID on source Phantom host",
+            "data_type": "string",
+            "required": false,
+            "value_list": [],
+            "default": "",
+            "order": 3,
+            "name": "source_prod_repo_id",
+            "id": 3
+        },
+        "source_tenant_id": {
+            "description": "Tenant ID on source Phantom host",
+            "data_type": "string",
+            "required": false,
+            "value_list": [],
+            "default": "",
+            "order": 4,
+            "name": "source_tenant_id",
+            "id": 4
+        },
+        "target_base_url": {
+            "description": "URL for target phantom host",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "https://prodphantom.company.com/",
+            "order": 5,
+            "name": "target_base_url",
+            "id": 5
+        },
+        "target_api_token": {
+            "description": "API token for target Phantom host",
+            "data_type": "password",
+            "required": true,
+            "order": 6,
+            "name": "target_api_token",
+            "id": 6
+        },
+        "target_repo_id": {
+            "description": "Prod repository ID on target Phantom host",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 7,
+            "name": "target_repo_id",
+            "id": 7
+        },
+        "debug": {
+            "description": "Print debugging statements to log",
+            "data_type": "boolean",
+            "required": false,
+            "default": "False",
+            "order": 8,
+            "name": "debug",
+            "id": 8
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "description": "Validate the asset configuration for connectivity using supplied credentials",
+            "type": "test",
+            "identifier": "test_connectivity",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "add approval",
+            "description": "Add approval artifact to Exodus",
+            "type": "generic",
+            "identifier": "add_approval",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "on poll",
+            "description": "Execute migration options",
+            "type": "ingest",
+            "identifier": "on_poll",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+    ],
+    "directory": "exodus_7fbd6b83-a9c6-4949-8e09-34bf2c39694d",
+    "version": 1,
+    "appname": "-",
+    "executable": "spawn3",
+    "disabled": false,
+    "copied_from_id": 424,
+    "copied_from_version": "1.0.0",
+    "custom_made": true
+}
