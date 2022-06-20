@@ -25,6 +25,7 @@ Once those steps are complete you are ready to import code into playbooks and ut
 <h2>Things to know:</h2>
 <ul>
 <li>The global utility function is not usable as a normal utility. It was created to house function definitions to be imported elsewhere
+<li>As shown in the example, your function definitions should be outside of the utility function definition. If you store them within the utility function definition, they will not be accessible to import
 <li>Use a seperate global utility function for each repository. Do not attempt to set python paths to allow cross repo talk
 <li>Once the global utility function is saved, if you change the name of any function definitions, or add new functions, you need to reload the module. Failure to do so will result in your changes not being recognized
 <li>It is <b>my best practice</b> to create a playbook that imports and executes the reload function
