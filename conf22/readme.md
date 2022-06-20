@@ -12,7 +12,9 @@ I deally there will be a link added here after the presentation to the recording
 <i>During conf I was asked why, with other options available for managing custom code content, I support this concept of hijacking a utility function as an imported module. The reasoning is fairly simple. This process is easy to implement, easy to understand, and is as close to "native" as you can get in the platform. Anyone who is familiar with what is happening knows how to utilize, locate, and update the module without having to leave the platform UI. Keep it simple.</i><br><br>
 
 The global util example provided here is an example of how to take repeatable boiler plate code and use a utility function as a module to store and import it<br>
-The custom_prompt_example_with_reload file is an example playbook showing how to import and use the utility function
+The custom_prompt_example_with_reload file is an example playbook showing how to import and use the utility function<br><br>
+
+<i>You can find me in the community slack as mhike. I have only been using this utility strategy for a few months. If you find something cool to do with it or encounter a problem you think we should know about, hit me up.</i>
 
 <h2>Initial Setup:</h2>
 <ul>
