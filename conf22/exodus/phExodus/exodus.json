@@ -14,7 +14,7 @@
     "min_phantom_version": "4.8.0",
     "logo": "logo_exodus.svg",
     "logo_dark": "logo_exodus_dark.svg",
-    "license": "Internal Use Only",
+    "license": "Copyright (c) Mhike, 2022",
     "python_version": "3",
     "configuration": {
         "source_base_url": {
@@ -140,7 +140,5 @@
     "appname": "-",
     "executable": "spawn3",
     "disabled": false,
-    "copied_from_id": 424,
-    "copied_from_version": "1.0.0",
     "custom_made": true
 }
