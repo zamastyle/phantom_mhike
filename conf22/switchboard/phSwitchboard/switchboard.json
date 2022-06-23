@@ -157,7 +157,5 @@
     "version": 1,
     "appname": "-",
     "executable": "spawn3",
-    "disabled": false,
-    "copied_from_id": 405,
-    "copied_from_version": "1.9.0"
+    "disabled": false
 }
