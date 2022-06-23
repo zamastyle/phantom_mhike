@@ -98,6 +98,11 @@
                 "height": 5,
                 "view": "link_widget_view.display_view"
             },
+            "lock": {
+                "enabled": true,
+                "data_path": "linklock",
+                "timeout": 600
+            },
             "output": [
                 {
                     "data_path": "action_result.status",
