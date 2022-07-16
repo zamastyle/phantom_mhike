@@ -35,7 +35,7 @@ This message is not very useful, but it can be cleaned up %% formatting.
 If instead a format block like this is used:
 ```
 %%
-The device {0} at {1} owned by user {2} needs to be isolated
+The device {0} with the address {1} owned by user {2} is doung bad stuff
 %%
 ```
 The output becomes much more human friendly:
@@ -65,7 +65,7 @@ If `artifacts:*.cef.sourceAddress` was passed as a standard input to an action i
 `sourceAddress` values in the source artifacts in the container. The action would then execute once for each of the sourceAddresses. 
 This is an intuitive behavior and individual action results are generated for each input as expected. 
 
-_Unfortunately_, when working with code blocks (legacy custom functions) the behavior is entirly different. 
+_Unfortunately_, when working with code blocks (legacy custom functions) the behavior is entirely different. 
 A list output in a code block variable that is passed to an action is not treated as a list but instead as a single object.
 
 If a code block processed the artifacts above and created an output variable like this:
@@ -88,10 +88,25 @@ The code block output is used as the input for token `{0}`. With that setup, the
 
 Because the `<format>:formatted_data.*` output was used for the action input, it will treat each value as an element and `IP Reputation` will run as intended.
 
+The requirements for this type of format loop are very simple:
+- Use the format blocks `<format>:formatted_data.*` output
+ - For the input loop, individual elemnet are required as outputs so always use `<format>:formatted_data.*`
+- If you are doing more complex formatting with multiple varibles, rememeber, each of the variables to substitute in must have the same number of values.
+
+## Variations
+### Example 1: Splitting up multiple values into seperate formatted action inputs
+---
+
 The input format above is the simplest case. This can also be used for more complex formatting. For instance, formatting multiple splunk queries.
-It is unlikely that a splunk query is going to execute properly as a single like this:
+It is unlikely that a splunk query is going to execute properly like this:
+**Old Editor**
 ```
 index=user_asset id="[\"David\",\"Eugene\",\"Velociraptor\"]"
+```
+**New Editor** (this can actually be easily used in a splunk query if the query is written to account for this)
+
+```
+index=user_asset id=David,Eugene,Velociraptor
 ```
 But if an input format loop is used:
 ```
@@ -100,8 +115,33 @@ index=user_asset id={0}
 %%
 ```
 Then 3 individual and usable splunk queries can be passed to a `RunQuery` action and get the job done.
+```
+index=user_asset id=David
+index=user_asset id=Eugene
+index=user_asset id=Velociraptor
+```
+Just remember to use the `<format>:formatted_data.*` output when passing the formatted queries to the action
 
-The requirements for this type of format loop are very simple:
-- Use the format blocks `<format>:formatted_data.*` output
- - For the input loop, individual elemnet are required as outputs so always use `<format>:formatted_data.*`
-- If you are doing more complex formatting with multiple varibles, rememeber, each of the variables to substitute in must have the same number of values.
+---
+### Example 2: Looping inner portions of a full message
+---
+
+Looping in all previous examples looped the entire message but a loop can be embedded inside of a message. If the format block is build like this:
+```
+This is my message beginning.
+The users to be reviewed:
+%%
+{0},
+%%
+And this is my message ending
+```
+The result is that the looped formatting is only applied to the middle section of the message instead of repeating the full message for each user. The final message comes out clearly but there is a a dangling comma left over on the final user name because the same format is used ever time:
+```
+This is my message beginning.
+The users to be reviewed:
+David,
+Eugene,
+Velociraptor,
+And this is my message ending
+```
+This can be very helpful when trying to plug mutiple values into an email body or message
