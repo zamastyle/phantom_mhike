@@ -99,10 +99,12 @@ The requirements for this type of format loop are very simple:
 
 The input format above is the simplest case. This can also be used for more complex formatting. For instance, formatting multiple splunk queries.
 It is unlikely that a splunk query is going to execute properly like this:
+
 **Old Editor**
 ```
 index=user_asset id="[\"David\",\"Eugene\",\"Velociraptor\"]"
 ```
+
 **New Editor** (this can actually be easily used in a splunk query if the query is written to account for this)
 
 ```
