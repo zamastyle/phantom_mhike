@@ -42,6 +42,8 @@
 /rest/decided_list<br/>
 /rest/decided_list/<list_name>
 
+/rest/scm
+
 /rest/ingestion_status
 
 /rest/app_status
