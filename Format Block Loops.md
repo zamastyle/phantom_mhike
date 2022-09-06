@@ -137,7 +137,7 @@ The users to be reviewed:
 %%
 And this is my message ending
 ```
-The result is that the looped formatting is only applied to the middle section of the message instead of repeating the full message for each user. The final message comes out clearly but there is a dangling comma left over on the final user name because the same format is used every time:
+The result is that the looped formatting is only applied to the middle section of the message instead of repeating the full message for each user. The final message comes out clearly but there is a dangling comma left over on the final username because the same format is used every time:
 ```
 This is my message beginning.
 The users to be reviewed:
