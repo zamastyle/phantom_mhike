@@ -4,16 +4,16 @@ They are core to managing several facets of playbook development.
 
 The default behavior of a format block is similar to a python string.format() call merging variables with static data. 
 That is standard documented usage so this help is not going to dive into that. 
-Instead we will be examining how to use %% in your format blocks to make a format block "loop". 
+Instead, we will be examining how to use %% in your format blocks to make a format block "loop". 
 Loop is in quotes here because it is the closest way to describe what is happening here but it is not a conventional loop that you have any level of control over. 
 
-The two use cases for the %% format strategy are input formatting to seperate multi-valued inputs into distinct action runs, and output formatting to make a 
+The two use cases for the %% format strategy are input formatting to separate multi-valued inputs into distinct action runs, and output formatting to make a 
 message prettier and more human readable. 
 Strictly speaking these are both more or less the same operation. they are only broken up in this help to make it easier to understand the intent.
 
 ## Output Format Loops
 Output formatting is more similar to what people expect of a format block so let's begin with that.
-For the purposes of our example we will be using artifacts but this applies to most sources that you can use as input. 
+For the purposes of our example, we will be using artifacts but this applies to most sources that you can use as input. 
 
 Imagine we have a container with the below artifacts in it:
 ```
@@ -24,25 +24,25 @@ event   Quadra           3.3.3.3         Velociraptor
 ```
 As you are probably familiar, if these values are used conventionally in a format block like this:
 ```
-The device {0} with the address {1} owned by user {2} is doung bad stuff
+The device {0} with the address {1} owned by user {2} is doing bad stuff
 ```
-The output is less than desireable, and is more likely to generate confusion than immediate action:
+The output is less than desirable, and is more likely to generate confusion than immediate action:
 ```
-The device [WOPR,The Gibson,Quadra] with the address [1.1.1.1,2.2.2.2,3.3.3.3] owned by user [David,Eugene,Velociraptor] is doung bad stuff
+The device [WOPR,The Gibson,Quadra] with the address [1.1.1.1,2.2.2.2,3.3.3.3] owned by user [David,Eugene,Velociraptor] is doing bad stuff
 ```
 This message is not very useful, but it can be cleaned up %% formatting.
 
 If instead a format block like this is used:
 ```
 %%
-The device {0} with the address {1} owned by user {2} is doung bad stuff
+The device {0} with the address {1} owned by user {2} is doing bad stuff
 %%
 ```
 The output becomes much more human friendly:
 ```
-The device WOPR with the address 1.1.1.1 owned by user David is doung bad stuff
-The device The Gibson with the address 2.2.2.2 owned by user Eugene is doung bad stuff
-The device Quadra with the address 3.3.3.3 owned by user Velociraptor is doung bad stuff
+The device WOPR with the address 1.1.1.1 owned by user David is doing bad stuff
+The device The Gibson with the address 2.2.2.2 owned by user Eugene is doing bad stuff
+The device Quadra with the address 3.3.3.3 owned by user Velociraptor is doing bad stuff
 ```
 In order for this type of format block to work properly, a few requirements need to be met:
 - Each of the variables to substitute in must have the same number of values.
@@ -54,7 +54,7 @@ In order for this type of format block to work properly, a few requirements need
 ## Input Format Loops
 The second type of use case for format loops is input format loops. These are very useful but are being used as inputs to actions rather than to format readable data
 
-Using the same example artifacts we saw in the first example:
+Using the same example artifacts, we saw in the first example:
 ```
 label   deviceHostname   sourceAddress   sourceUserName
 event   WOPR             1.1.1.1         David
@@ -90,11 +90,11 @@ Because the `<format>:formatted_data.*` output was used for the action input, it
 
 The requirements for this type of format loop are very simple:
 - Use the format blocks `<format>:formatted_data.*` output
- - For the input loop, individual elemnet are required as outputs so always use `<format>:formatted_data.*`
-- If you are doing more complex formatting with multiple varibles, rememeber, each of the variables to substitute in must have the same number of values.
+ - For the input loop, individual elements are required as outputs so always use `<format>:formatted_data.*`
+- If you are doing more complex formatting with multiple variables, remember, each of the variables to substitute in must have the same number of values.
 
 ## Variations
-### Example 1: Splitting up multiple values into seperate formatted action inputs
+### Example 1: Splitting up multiple values into separate formatted action inputs
 ---
 
 The input format above is the simplest case. This can also be used for more complex formatting. For instance, formatting multiple splunk queries.
@@ -128,7 +128,7 @@ Just remember to use the `<format>:formatted_data.*` output when passing the for
 ### Example 2: Looping inner portions of a full message
 ---
 
-Looping in all previous examples looped the entire message but a loop can be embedded inside of a message. If the format block is build like this:
+Looping in all previous examples looped the entire message but a loop can be embedded inside of a message. If the format block is built like this:
 ```
 This is my message beginning.
 The users to be reviewed:
@@ -137,7 +137,7 @@ The users to be reviewed:
 %%
 And this is my message ending
 ```
-The result is that the looped formatting is only applied to the middle section of the message instead of repeating the full message for each user. The final message comes out clearly but there is a a dangling comma left over on the final user name because the same format is used ever time:
+The result is that the looped formatting is only applied to the middle section of the message instead of repeating the full message for each user. The final message comes out clearly but there is a dangling comma left over on the final user name because the same format is used every time:
 ```
 This is my message beginning.
 The users to be reviewed:
@@ -146,4 +146,4 @@ Eugene,
 Velociraptor,
 And this is my message ending
 ```
-This can be very helpful when trying to plug mutiple values into an email body or message
+This can be very helpful when trying to plug multiple values into an email body or message
