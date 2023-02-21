@@ -90,7 +90,7 @@ the /rest/artifact endpoint has a unique search ability that can come in handy. 
 Basic search syntax (searching for the term cve-0000 in all cef fields across all artifacts)<br/>
 <code>/rest/artifact?search_cef=["cve-0000"]</code>
 
-Filtered search for the same term (after Reb 10th and with a severity of high)<br/>
+Filtered search for the same term (after Feb 10th and with a severity of high)<br/>
 
 <code>/rest/artifact?_filter_create_time__gt="2023-02-10T00:00:00.000000Z"&_filter_severity="high"&search_cef=["cve-0000"]</code>
  
